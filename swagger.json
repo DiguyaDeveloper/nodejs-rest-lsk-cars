@@ -1,0 +1,135 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "description": "This is server Ceccoff.",
+    "version": "1.0.0",
+    "title": "Swagger Ceccoff",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "diegoceccon1544@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+
+  "servers": [
+    {
+      "url": "http://localhost:3000/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "veicules",
+      "description": "Operations about veicules",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "paths": {
+    "/v1/veicules/register": {
+      "post": {
+        "tags": ["veicules"],
+        "summary": "Add a book to the database",
+        "operationId": "book-add",
+        "requestBody": {
+          "description": "New user signing up",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/veiculeSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Book was added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerErrorSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "veiculeSchema": {
+        "type": "object",
+        "properties": {
+          "plate": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "proprietary": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "color": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "fabricant": {
+            "type": "string",
+            "description": "Error message"
+          }
+        },
+        "required": ["error"]
+      },
+      "BadRequestSchema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message",
+            "example": "PATH: [author] ;; MESSAGE: \"author\" is required"
+          }
+        },
+        "required": ["error"]
+      },
+      "ServerErrorSchema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Internal server error"
+          }
+        },
+        "required": ["error"]
+      }
+    }
+  }
+}

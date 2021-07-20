@@ -1,57 +1,113 @@
 {
-  "name": "frontend-cars-lsk",
-  "version": "0.0.0",
+  "name": "simple-express-typescript-ceccoff",
+  "version": "1.0.0",
+  "title": "Typescript",
+  "description": "Typescript + Express + Swagger + Typeorm",
+  "main": "src/app.ts",
+  "type": "module",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "tsc --noEmit && eslint . --ext js,ts,json --quiet --fix"
+    "start:prod": "node dist/main",
+    "start:dev": "ts-node-dev -r tsconfig-paths/register --inspect --ignore-watch node_modules src/app.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --ignore-watch node_modules src/app.ts",
+    "build:prod": "tsc -p tsconfig.build.json",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "upgrade": "npm update --save-dev && npm update --save",
+    "migration:generate": "npm run typeorm migration:generate -d src/migrations -n",
+    "migration:create": "npm run typeorm migration:create -d src/migrations -n",
+    "migration:revert": "npm run typeorm migration:revert",
+    "schema:drop": "npm run typeorm schema:drop",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test": "jest --forceExit --detectOpenHandles --coverage --verbose",
+    "watch": "nodemon"
   },
-  "private": true,
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "exec": "npm run build && npm start",
+    "ext": "ts",
+    "delay": 1000
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/afteracademy/nodejs-backend-architecture-typescript.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "TypeScript",
+    "express",
+    "Typeorm"
+  ],
+  "author": "Diego Ceccon de Souza",
+  "license": "MIT",
+  "homepage": "https://github.com/DiguyaDeveloper",
+  "contributors": [
+    {
+      "name": "Diego Ceccon",
+      "email": "diegoceccon1544@gmail.com",
+      "url": "https://github.com/DiguyaDeveloper"
+    }
+  ],
   "dependencies": {
-    "@angular/animations": "~12.1.1",
-    "@angular/common": "~12.1.1",
-    "@angular/compiler": "~12.1.1",
-    "@angular/core": "~12.1.1",
-    "@angular/forms": "~12.1.1",
-    "@angular/localize": "~12.1.1",
-    "@angular/platform-browser": "~12.1.1",
-    "@angular/platform-browser-dynamic": "~12.1.1",
-    "@angular/router": "~12.1.1",
-    "@ng-bootstrap/ng-bootstrap": "^10.0.0",
-    "bootstrap": "^5.0.2",
-    "rxjs": "~6.6.0",
-    "tslib": "^2.2.0",
-    "zone.js": "~0.11.4"
+    "@types/dotenv": "^8.2.0",
+    "@types/jest": "^26.0.20",
+    "bcrypt": "^5.0.1",
+    "class-validator": "^0.13.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jest": "^26.6.3",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.7",
+    "reflect-metadata": "^0.1.13",
+    "swagger-jsdoc": "^6.0.0",
+    "swagger-ui": "^3.45.0",
+    "swagger-ui-express": "^4.1.6",
+    "ts-node-dev": "^1.1.6",
+    "tsconfig-paths": "^3.9.0",
+    "tslint": "^6.1.3",
+    "typedi": "^0.10.0",
+    "typeorm": "^0.2.31",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~12.1.1",
-    "@angular/cli": "~12.1.1",
-    "@angular/compiler-cli": "~12.1.1",
-    "@types/jasmine": "~3.6.0",
-    "@types/node": "^12.11.1",
-    "@typescript-eslint/eslint-plugin": "^4.28.2",
-    "eslint": "^7.30.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "husky": "^7.0.1",
-    "jasmine-core": "~3.7.0",
-    "karma": "~6.3.0",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage": "~2.0.3",
-    "karma-jasmine": "~4.0.0",
-    "karma-jasmine-html-reporter": "^1.5.0",
-    "prettier": "^2.3.2",
-    "prettier-eslint": "^12.0.0",
-    "pretty-quick": "^3.1.1",
-    "typescript": "~4.3.2"
+    "@types/express": "^4.17.11",
+    "@types/node": "^14.14.34",
+    "ts-node": "^9.1.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.2.3"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && ng test --watch=false --browsers=ChromeHeadless",
-      "pre-push": "ng build --aot true"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
   }
 }
