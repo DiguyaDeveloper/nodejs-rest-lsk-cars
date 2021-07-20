@@ -1,0 +1,79 @@
+<div class="row justify-content-center mb-4">
+  <div class="col-md-12">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">Entrada de veículos</h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <div class="form-group">
+                <label> Proprietário <span class="asterisk"></span> </label>
+                <input
+                  formControlName="proprietary"
+                  class="form-control"
+                  type="text"
+                  name="proprietary"
+                  [ngClass]="{ 'is-invalid': submitted && f.proprietary.errors }"
+                />
+                <span class="invalid-feedback" *ngIf="submitted && f.proprietary.errors"> Campo obrigatório</span>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <div class="form-group">
+                <label> Placa <span class="asterisk"></span> </label>
+                <input
+                  formControlName="plate"
+                  class="form-control"
+                  type="text"
+                  name="plate"
+                  [ngClass]="{ 'is-invalid': submitted && f.plate.errors }"
+                />
+                <span class="invalid-feedback" *ngIf="submitted && f.plate.errors"> Campo obrigatório</span>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <div class="form-group">
+                <label> Fabricante <span class="asterisk"></span> </label>
+                <select
+                  formControlName="manufacturer"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.manufacturer.errors }"
+                >
+                  <option value=""></option>
+                  <option *ngFor="let item of fabricantes" [value]="item.key">
+                    {{ item.value }}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.manufacturer.errors" class="invalid-feedback">
+                  <div *ngIf="f.manufacturer.errors.required">Campo obrigatório</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <div class="form-group">
+                <label> Cor do veiculo <span class="asterisk"></span> </label>
+                <select
+                  formControlName="color"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.color.errors }"
+                >
+                  <option value=""></option>
+                  <option *ngFor="let item of colors" [value]="item.key">
+                    {{ item.value }}
+                  </option>
+                </select>
+                <span class="invalid-feedback" *ngIf="submitted && f.color.errors"> Campo obrigatório</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" type="submit">Entrada de veiculo</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

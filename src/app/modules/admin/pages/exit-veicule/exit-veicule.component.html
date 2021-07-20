@@ -1,0 +1,29 @@
+<div class="row justify-content-center mb-4">
+  <div class="col-md-12">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">Saida de veículos</h5>
+      </div>
+
+<div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+
+        <div class="col-md-3 mb-3">
+          <div class="form-group">
+            <label> Placa <span class="asterisk"></span> </label>
+            <input
+              formControlName="plate"
+              class="form-control"
+              type="text"
+              name="plate"
+              [ngClass]="{ 'is-invalid': submitted && f.plate.errors }"
+            />
+            <span class="invalid-feedback" *ngIf="submitted && f.plate.errors"> Campo obrigatório</span>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Procurar veículo</button>
+      </form>
+  </div>
+</div>
